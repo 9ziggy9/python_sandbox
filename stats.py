@@ -123,8 +123,10 @@ def generate_s_space(*states, subspace=[]):
 
 def product_space(states1, states2):
     space = []
-    for x in states1:
-        for y in states2:
+    if len(states1) == 0: return list(states2)
+    if len(states2) == 0: return list(states1)
+    for x in tuple(states1):
+        for y in tuple(states2):
             if x and y:
                 space.append(x+y)
     return space
