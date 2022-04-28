@@ -116,6 +116,14 @@ def sample_variance_from_f(*points):
     return (sum(fm2_table) - n*(mu**2))/ (n-1)
 
 # accepts list of exclusive states provided as tuple of chars
-# sample space denoted ss
-def generate_sample_space(*states, ss=[]):
-    if len(states) == 0: return "hello, world!"
+def cartesian_product(): pass
+                         
+def generate_s_space(*states, subspace=[]):
+    if len(states) == 1: states[0]
+    a,b = states[0]
+    return [
+    ]
+
+def explicit_stack(*stacks):
+    sc = len(stacks)
+
