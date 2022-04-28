@@ -115,31 +115,19 @@ def sample_variance_from_f(*points):
         fm2_table.append(point[2] * ((point[1] + point[0])/2)**2)
     return (sum(fm2_table) - n*(mu**2))/ (n-1)
 
-def generate_s_space(*states, subspace=[]):
-    if len(states) == 1: states[0]
-    a,b = states[0]
-    return [
-    ]
-
 def product_space(states1, states2):
-    space = []
     if len(states1) == 0: return list(states2)
     if len(states2) == 0: return list(states1)
-    for x in tuple(states1):
-        for y in tuple(states2):
-            if x and y:
-                space.append(x+y)
-    return space
+    return [x+y for x in states1 for y in states2]
 
 # Default arguments are evaluated when the function definition is encountered,
 # that is, when Python sees the def line. They are then BOUND to the function.
 # With mutable default arguments, the default arguments bound to the function
-# may bechanged, which can lead to some surprising results. The use of None as
+# may be changed, which can lead to some surprising results. The use of None as
 # default which is tested with conditional is a common pattern to overcome this
-# behavior. Seems that this is perhaps analogous to a singleton or closure.
-def explicit_stack(stacks, subspace=None):
+# behavior.
+def generate_sample_space(states, subspace=None):
     if subspace is None: subspace = []
-    if len(stacks) == 0: return subspace
-    print(stacks)
-    subspace.append(stacks[0])
-    return explicit_stack(stacks[1:], subspace)
+    if len(states) == 0: return subspace
+    subspace = product_space(subspace,states[0])
+    return generate_sample_space(states[1:], subspace)
