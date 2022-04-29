@@ -131,3 +131,27 @@ def generate_sample_space(states, subspace=None):
     if len(states) == 0: return subspace
     subspace = product_space(subspace,states[0])
     return generate_sample_space(states[1:], subspace)
+
+def compute_frequency(interval,data):
+    (a,b) = interval
+     return len([d for d in data if (d <= b and d >= a)])
+
+ def compute_cumulative_fs(w,interval,data):
+     (a,b) = interval
+      fs = []
+      for x in range(a,b-1,w+1):
+          fs.append(compute_frequency((x,x+w), data))
+          return fs
+
+def compute_ev(*data):
+    return sum([x*P for (x,P) in data])
+
+def variance_from_pd(*data):
+    mu = compute_ev(*data)
+    return sum([P*(x-mu)**2 for (x,P) in data])
+
+def sd_from_pd(*data):
+    return math.sqrt(variance_from_pd(*data))
+
+def binomial_mass(n,x,p):
+    return math.comb(n,x)*((p**x)*((1-p)**(n-x)))
