@@ -115,6 +115,20 @@ def sample_variance_from_f(*points):
         fm2_table.append(point[2] * ((point[1] + point[0])/2)**2)
     return (sum(fm2_table) - n*(mu**2))/ (n-1)
 
+# PROBLEM: For a set of random variables, we associate to each a set of
+# mutually exclusive events represented by characters. The number of possible
+# events is arbitrary. Given a collection of such sets, generate the sample
+# space of all possible measurements on the set of random variables.
+
+# For a random variable X, suoose we have ('a','b','c')
+# For Y, we could have ('d','e')
+# A call to our desired procedure, say,
+# generate_sample_space([('a','b','c'),('d',e')])
+# should return the set [('ad', 'ae', 'bd', 'be', 'cd', 'ce')]
+# Note that in general, the number of random variables provided is arbitary.
+
+# The simple Cartesian product on tuples of characters, will be applied
+# recursively to a growing subspace in our generate_sample_space() procedure.
 def product_space(states1, states2):
     if len(states1) == 0: return list(states2)
     if len(states2) == 0: return list(states1)
@@ -134,14 +148,14 @@ def generate_sample_space(states, subspace=None):
 
 def compute_frequency(interval,data):
     (a,b) = interval
-     return len([d for d in data if (d <= b and d >= a)])
+    return len([d for d in data if (d <= b and d >= a)])
 
- def compute_cumulative_fs(w,interval,data):
-     (a,b) = interval
-      fs = []
-      for x in range(a,b-1,w+1):
-          fs.append(compute_frequency((x,x+w), data))
-          return fs
+def compute_cumulative_fs(w,interval,data):
+    (a,b) = interval
+    fs = []
+    for x in range(a,b-1,w+1):
+        fs.append(compute_frequency((x,x+w), data))
+    return fs
 
 def compute_ev(*data):
     return sum([x*P for (x,P) in data])
@@ -155,3 +169,9 @@ def sd_from_pd(*data):
 
 def binomial_mass(n,x,p):
     return math.comb(n,x)*((p**x)*((1-p)**(n-x)))
+
+def poisson_mass(k,r):
+    return ((r**k)*math.exp(-r))/math.factorial(k)
+
+def hypergeometric_mass(N,K,n,k):
+    return (math.comb(K,k)*math.comb(N-K, n-k))/math.comb(N,n)
