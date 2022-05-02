@@ -173,5 +173,6 @@ def binomial_mass(n,x,p):
 def poisson_mass(k,r):
     return ((r**k)*math.exp(-r))/math.factorial(k)
 
+# See wiki for more details
 def hypergeometric_mass(N,K,n,k):
     return (math.comb(K,k)*math.comb(N-K, n-k))/math.comb(N,n)
