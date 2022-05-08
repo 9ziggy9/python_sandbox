@@ -176,3 +176,15 @@ def poisson_mass(k,r):
 # See wiki for more details
 def hypergeometric_mass(N,K,n,k):
     return (math.comb(K,k)*math.comb(N-K, n-k))/math.comb(N,n)
+
+# Probability P(x) that random variable X will take on value less than or
+# equal to x.
+def cdf_normal(x,mu,sigma):
+    return (0.5)*(1 + math.erf((x-mu)/(sigma*math.sqrt(2))))
+
+# Compute probability that porportion of samples will fall under a given
+# percentage.
+def cdf_normal_from_pn(p_target,p,n):
+    sigma_p = math.sqrt((p*(1-p))/n)
+    z_score = (p_target - p) / sigma_p
+    return (0.5)*(1 + math.erf(z_score/math.sqrt(2)))
