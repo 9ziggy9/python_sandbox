@@ -188,3 +188,6 @@ def cdf_normal_from_pn(p_target,p,n):
     sigma_p = math.sqrt((p*(1-p))/n)
     z_score = (p_target - p) / sigma_p
     return (0.5)*(1 + math.erf(z_score/math.sqrt(2)))
+
+def confidence_interval(x,sigma,n,z):
+    return (x-z*(sigma/math.sqrt(n)),x+z*(sigma/math.sqrt(n)))
