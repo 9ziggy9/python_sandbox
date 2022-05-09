@@ -191,3 +191,40 @@ def cdf_normal_from_pn(p_target,p,n):
 
 def confidence_interval(x,sigma,n,z):
     return (x-z*(sigma/math.sqrt(n)),x+z*(sigma/math.sqrt(n)))
+
+def confidence_interval_from_data(data_set,z):
+    n = len(data_set)
+    x = mean(*data_set)
+    sigma = sample_standard_deviation(*data_set)
+    return (x-z*(sigma/math.sqrt(n)),x+z*(sigma/math.sqrt(n)))
+
+def confidence_interval_from_sample_proportion(n_0,n,z):
+    p = n_0 / n
+    return (p-z*math.sqrt((p*(1-p))/n), p+z*math.sqrt((p*(1-p))/n))
+
+def sample_size_from_confidence(mu, sigma, E, z):
+    return (z*(sigma/E))**2
+
+def sample_size_from_proportion(p,E,z):
+    return (z**2)*(p*(1-p))/(E**2)
+
+def z_test(x,mu,sigma,n):
+    return (math.sqrt(n)*(x-mu))/sigma
+
+def t_test(mu1,mu2,sigma,n):
+    return math.sqrt(n)*(mu1-mu2)/sigma
+
+def z_from_proportion(p_smp,p_pop,n):
+    return math.sqrt(n)*(p_smp-p_pop)/math.sqrt(p_pop*(1-p_pop))
+
+def test_statistic(s_smp,s_pop,n):
+    return (n-1)*((s_smp/s_pop)**2)
+
+def residual_sum_squares(b0,b1,data):
+    return sum([(y[1]-(b1*y[0]+b0))**2 for y in data])
+
+def variance_of_slope(b,m,data):
+    s = residual_sum_squares(b,m,data) / (len(data)-2)
+    X = mean(*[x[0] for x in data])
+    denom = sum([(x[0]-X)**2 for x in data])
+    return s/denom
